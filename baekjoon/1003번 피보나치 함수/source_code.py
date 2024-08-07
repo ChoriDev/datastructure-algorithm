@@ -1,28 +1,21 @@
-import math
+def get_fibonacci_numbers(n):
+    bottom_up_table = []
+    bottom_up_table.append(0)
+    bottom_up_table.append(1)
 
-def get_points_count(x1, y1, r1, x2, y2, r2):
-    d = math.sqrt(((x1 - x2) ** 2) + ((y1 - y2) ** 2)) # 중심 거리
+    for i in range(2, n + 1):
+        bottom_up_table.append(bottom_up_table[i - 1] + bottom_up_table[i - 2])
+    
+    return bottom_up_table
 
-    if d == 0 and r1 == r2:
-        return -1 # 다른 한 점이 존재할 수 있는 위치 개수, 무한대면 -1
-    elif d == 0 and r1 != r2:
-        return 0
-    elif d < abs(r1 - r2):
-        return 0
-    elif d > (r1 + r2):
-        return 0
-    elif d == (r1 + r2):
-        return 1
-    elif d == abs(r1 - r2):
-        return 1
-    else:
-        return 2
+fibonacci_numbers = get_fibonacci_numbers(40)
 
-T = int(input()) # 테스트 케이스의 수
+T = int(input())
 
 for i in range(T):
-    x1, y1, r1, x2, y2, r2 = map(int, input().split())
+    N = int(input())
 
-    count = get_points_count(x1, y1, r1, x2, y2, r2)
-
-    print(count)
+    if N == 0:
+        print(1, 0)
+    else:
+        print(fibonacci_numbers[N - 1], fibonacci_numbers[N])
